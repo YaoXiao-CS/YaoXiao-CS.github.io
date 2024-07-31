@@ -15,5 +15,6 @@ During my studies, I was honored to be mentored by [Prof. Yiguang Yang](https://
 You can find my CV here: [YaoXiao's Curriculum Vitae(Updating)](../assets/resume.pdf). And you can also find me here: [Email](xiaoyaozuel@163.com) / [Github](https://github.com/YaoXiao-CS) / [CSDN](https://blog.csdn.net/AIHUBEI)
 
 
-#### News
-test test
+News and Events
+======
+I am currently assigned by the department head and stationed at the Changtai Yangtze River Bridge Project Department, where I am responsible for data analysis and on-site management of the machine vision-based bridge alignment measurement system. At the same time, I am reviewing my machine learning and deep learning skills and planning my career choice.
