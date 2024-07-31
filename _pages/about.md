@@ -12,5 +12,5 @@ I have graduated from the [School of Information Engineering of ZhongNan Univers
 
 You can find my CV here: [YaoXiao's Curriculum Vitae(Updating)](../assets/resume.pdf).
 
-[Email](xiaoyaozuel@163.com) / [Github](https://github.com/YaoXiao-CS) / [CSDN](https://blog.csdn.net/AIHUBEI))
+You can also find me here: [Email](xiaoyaozuel@163.com) / [Github](https://github.com/YaoXiao-CS) / [CSDN](https://blog.csdn.net/AIHUBEI)
 
