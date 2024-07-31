@@ -8,13 +8,13 @@ redirect_from:
   - /about.html
 ---
 
-  I have graduated from the [School of Information Engineering of ZhongNan University of Economics and Law](https://xagx.zuel.edu.cn/) with a Master of Engineering degree.  My research interests include Machine Learning, Interpretable Machine Learning，Computer vision and their applications in engineering.     
+I have graduated from the [School of Information Engineering of ZhongNan University of Economics and Law](https://xagx.zuel.edu.cn/) with a Master of Engineering degree.  My research interests include Machine Learning, Interpretable Machine Learning，Computer vision and their applications in engineering.     
 
-  During my studies, I was honored to be mentored by [Prof. Yiguang Yang](https://xagx.zuel.edu.cn/2016/0918/c3560a79015/page.htm) of the Department of Information Science. And now, I am working in the Intelligent Construction Department of the Technology Center of CCCC Second Navigation Bureau Co. and work as an intermediate engineer.  
+During my studies, I was honored to be mentored by [Prof. Yiguang Yang](https://xagx.zuel.edu.cn/2016/0918/c3560a79015/page.htm) of the Department of Information Science. And now, I am working in the Intelligent Construction Department of the Technology Center of CCCC Second Navigation Bureau Co. and work as an intermediate engineer.  
 
-  You can find my CV here: [YaoXiao's Curriculum Vitae(Updating)](../assets/resume.pdf). And you can also find me here: [Email](xiaoyaozuel@163.com) / [Github](https://github.com/YaoXiao-CS) / [CSDN](https://blog.csdn.net/AIHUBEI).  
+You can find my CV here: [YaoXiao's Curriculum Vitae(Updating)](../assets/resume.pdf). And you can also find me here: [Email](xiaoyaozuel@163.com) / [Github](https://github.com/YaoXiao-CS) / [CSDN](https://blog.csdn.net/AIHUBEI) 
 
 
-News and Events
+News and Plans
 ======
-I am currently assigned by the department head and stationed at the Changtai Yangtze River Bridge Project Department, where I am responsible for data analysis and on-site management of the machine vision-based bridge alignment measurement system. At the same time, I am reviewing my machine learning and deep learning skills and planning my career choice.
+I am currently working in the technology center of a company and holding the position of Engineer. At the same time I am thinking about things regarding career planning.
