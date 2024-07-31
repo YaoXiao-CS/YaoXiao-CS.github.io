@@ -14,7 +14,7 @@ name                     : &name "Yao Xiao"
 description              : &description "Master of Engineering, ZUEL"
 url                      : https://yaoxiao-cs.github.io/ # the base hostname & protocol for your site e.g. "https://yaoxiao-cs.github.io/"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "YaoXiao-CS/YaoXiao-CS.github.io"
+repository               : "YaoXiao-CS/"
 
 # Site Author - The following control what appear as part of the author content on the side bar.
 #               If a field is blank the icon and link will not appear, otherwise it will be shown.
