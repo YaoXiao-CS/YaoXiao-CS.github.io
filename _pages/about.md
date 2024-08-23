@@ -7,6 +7,11 @@ redirect_from:
   - /about/
   - /about.html
 ---
+<style>
+  p {
+    text-align: justify;
+  }
+</style>
 
 I have graduated from the [School of Information Engineering of ZhongNan University of Economics and Law](https://xagx.zuel.edu.cn/) with a Master of Engineering degree.  My research interests include Machine Learning, Interpretable Machine Learning，Computer vision and their applications in engineering.     
 
