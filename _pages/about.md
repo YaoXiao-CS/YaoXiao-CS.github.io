@@ -13,7 +13,7 @@ I have graduated from the [School of Information Engineering of ZhongNan Univers
 During my studies, I was honored to be mentored by [Prof. Yiguang Yang](https://xagx.zuel.edu.cn/2016/0918/c3560a79015/page.htm) of the Department of Information Science. And now, I am working in the Intelligent Construction Department of the Technology Center of CCCC Second Navigation Bureau Co. and work as an intermediate engineer.  
 
 In my life, I enjoy reading novels, such as works by Yu Hua and Mo Yan. At the same time, I find it very interesting to plant some greenery in my room. In my free time, I like to summarize some issues and experiences by writing blogs.  
-You can find my CV here: [YaoXiao's Curriculum Vitae(Updating)](../assets/resume.pdf). And you can also find me here: [Email](xiaoyaozuel@163.com) / [Github](https://github.com/YaoXiao-CS) / [CSDN](https://blog.csdn.net/AIHUBEI) 
+You can find my CV here: [YaoXiao's Curriculum Vitae(Updating)](../files/resume1.pdf). And you can also find me here: [Email](xiaoyaozuel@163.com) / [Github](https://github.com/YaoXiao-CS) / [CSDN](https://blog.csdn.net/AIHUBEI) 
 
 News
 ======
