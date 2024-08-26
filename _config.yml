@@ -21,8 +21,8 @@ repository               : "YaoXiao-CS/YaoXiao-CS.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  # avatar           : "20240731172835.png"
-  avatar           : "1499785426774.jpeg"
+  avatar           : "20240731172835.png"
+  # avatar           : "1499785426774.jpeg"
   name             : "Yao Xiao"
   pronouns         : # example: "she/her"  
   bio              : "Master of Engineering, ZUEL"
