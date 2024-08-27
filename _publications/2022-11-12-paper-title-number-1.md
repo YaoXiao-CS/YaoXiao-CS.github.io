@@ -5,7 +5,7 @@ permalink: /publication/2022-11-12-paper-title-number-1
 excerpt: 'This paper Proposed an interpretable machine learning method for predicting the compressive strength of high performance concrete.'
 date: 2022-11-12
 venue: '第25届全国桥梁学术会议'
-slidesurl: 'http://YaoXiao-CS.github.io/files/Slides1.pptx'
+slidesurl: 'http://YaoXiao-CS.github.io/files/Slides1.pdf'
 paperurl: 'http://YaoXiao-CS.github.io/files/paper1.pdf'
 citation: '王永威,肖垚,李焜耀,杨怡光. 基于CatBoost与SHAP的混凝土抗压强度预测[C].第25届全国桥梁学术会议论文集(下册).人民交通出版社,2022:955-962.'
 ---
