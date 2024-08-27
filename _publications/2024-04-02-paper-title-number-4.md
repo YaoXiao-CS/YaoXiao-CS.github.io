@@ -1,5 +1,5 @@
 ---
-title: "Paper Title Number 4"
+title: "Document image rectification method combined with semantic segmentation"
 collection: publications
 permalink: /publication/2024-04-02-paper-title-number-4
 excerpt: 'This paper is about the number 4. The number 5 is left for future work.'
