@@ -1,3 +1,3 @@
-## YaoXiao's Homepage
+## YaoXiao's CV
 
-[https://yaoxiao-cs.github.io/](https://yaoxiao-cs.github.io/)
+[https://yaoxiao-cs.github.io/CV/index.html](https://yaoxiao-cs.github.io/CV/index.html)
