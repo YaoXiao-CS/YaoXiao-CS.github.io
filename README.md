@@ -1,2 +1,1 @@
-# Yao Xiao's Homepage
 
