@@ -78,6 +78,12 @@
   color: #00A1D6; /* 设置 Bilibili 的品牌颜色 */
 }
 
+.google-scholar {
+  color: #4285F4; /* Google Scholar 的主要品牌颜色 */
+}
+
+
+
 .icon-btn:hover {
   transform: scale(1.10);
   color: #FFFFFF;
@@ -109,6 +115,10 @@
 
 .bilibili:hover {
   background-color: #00A1D6; /* 鼠标悬停时，背景色为 Bilibili 的品牌颜色 */
+}
+
+.google-scholar:hover {
+  color: #4285F4; /* 鼠标悬停时使用品牌蓝色 */
 }
 
 
