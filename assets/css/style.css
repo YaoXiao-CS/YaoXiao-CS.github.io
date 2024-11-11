@@ -83,7 +83,6 @@
 }
 
 
-
 .icon-btn:hover {
   transform: scale(1.10);
   color: #FFFFFF;
@@ -118,7 +117,7 @@
 }
 
 .google-scholar:hover {
-  color: #4285F4; /* 鼠标悬停时使用品牌蓝色 */
+  color: blue; /* 鼠标悬停时使用品牌蓝色 */
 }
 
 
