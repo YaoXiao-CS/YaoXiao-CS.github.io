@@ -117,7 +117,7 @@
 }
 
 .google-scholar:hover {
-  color: blue; /* 鼠标悬停时使用品牌蓝色 */
+  background-color: #4285F4; /* 鼠标悬停时使用品牌蓝色 */
 }
 
 
