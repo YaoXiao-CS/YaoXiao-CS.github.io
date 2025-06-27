@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>Blogs | Yao Xiao</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/css/materialize.min.css" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+  <style>
+    body { background: #f5f5f5; margin: 0; }
+    .blog-header { width: 100%; min-height: 260px; background: url('/assets/img/default_top_img.png') center center/cover no-repeat; color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin: 0; padding: 0; position: relative; }
+    .blog-header-inner { background: rgba(0,0,0,0.35); padding: 3rem 0 2rem 0; width: 100%; min-height: 260px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .blog-header h2 { font-weight: 700; letter-spacing: 2px; margin-bottom: 0.5em; text-align: center; }
+    .blog-header .blog-stats { margin-top: 1.2rem; font-size: 1.1rem; opacity: 0.93; text-align: center; }
+    .blog-header p { font-size: 1.2rem; opacity: 0.93; text-align: center; margin-top: 1.5em; margin-bottom: 0; }
+    .blog-main-row { display: flex; gap: 2rem; }
+    .blog-main-content { flex: 3; min-width: 0; }
+    .blog-sidebar { flex: 1; min-width: 220px; max-width: 320px; }
+    .blog-list-card { background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); margin-bottom: 2rem; padding: 1.5rem 2rem 1rem 2rem; display: flex; flex-direction: column; gap: 0.5rem; transition: box-shadow 0.2s; }
+    .blog-list-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.13); }
+    .blog-list-title { font-size: 1.3rem; font-weight: 600; color: #00897b; margin-bottom: 0.2rem; cursor: pointer; transition: color 0.2s; }
+    .blog-list-title:hover { color: #004d40; text-decoration: underline; }
+    .blog-list-meta { font-size: 0.98rem; color: #888; margin-bottom: 0.2rem; display: flex; gap: 1.2em; align-items: center; }
+    .blog-list-tags { margin-bottom: 0.5rem; }
+    .blog-tag { display: inline-block; background: #e0f2f1; color: #00897b; border-radius: 12px; padding: 0.15em 0.8em; font-size: 0.93em; margin-right: 0.5em; margin-bottom: 0.2em; transition: background 0.2s; }
+    .blog-tag:hover { background: #b2dfdb; }
+    .blog-list-summary { color: #444; font-size: 1.05rem; margin-bottom: 0.5rem; }
+    .blog-list-actions { margin-top: 0.5rem; }
+    #blog-content { background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 2rem 2rem 1rem 2rem; margin-bottom: 2rem; min-height: 300px; animation: fadeIn 0.5s; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
+    .back-to-list { margin-bottom: 1.5rem; display: inline-block; color: #00897b; cursor: pointer; font-size: 1rem; font-weight: 500; transition: color 0.2s; }
+    .back-to-list:hover { color: #004d40; text-decoration: underline; }
+    #blog-content h1, #blog-content h2, #blog-content h3 { color: #00897b; font-weight: 600; margin-top: 2rem; }
+    #blog-content pre, #blog-content code { background: #f3f3f3; border-radius: 4px; padding: 0.2em 0.4em; font-size: 0.98em; }
+    #blog-content pre { padding: 1em; overflow-x: auto; }
+    #blog-content img { max-width: 100%; border-radius: 6px; margin: 1em 0; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    #blog-content blockquote { border-left: 4px solid #26a69a; background: #f0f7f6; padding: 0.8em 1em; color: #555; margin: 1.5em 0; }
+    .blog-copyright { text-align: center; color: #888; font-size: 0.98em; margin: 2em 0 1em 0; padding-top: 1em; border-top: 1px solid #e0e0e0; }
+    .pagination { text-align: center; margin: 2em 0 1em 0; }
+    .pagination a { display: inline-block; margin: 0 8px; padding: 4px 12px; border-radius: 4px; color: #00897b; background: #e0f2f1; text-decoration: none; font-weight: 500; transition: background 0.2s, color 0.2s; }
+    .pagination a.active, .pagination a:hover { background: #00897b; color: #fff; }
+    @media (max-width: 992px) {
+      .blog-main-row { flex-direction: column; }
+      .blog-sidebar { max-width: 100%; margin-bottom: 2em; }
+    }
+    @media (max-width: 600px) {
+      .blog-header, #blog-content, .blog-list-card, .blog-sidebar { padding: 1rem !important; }
+      .blog-main-row { gap: 0.5rem; }
+      .blog-header-inner { padding: 2rem 0 1rem 0; min-height: 180px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="blog-header center-align">
+    <div class="blog-header-inner">
+      <h2>Blogs</h2>
+      <div class="blog-stats">
+        <span id="blog-count"></span> · <span id="blog-read-total"></span>
+      </div>
+      <div id="wordcloud" style="width: 100%; max-width: 420px; height: 120px; margin: 1.5em auto 0 auto;"></div>
+      <p>记录 · 分享 · 思考</p>
+    </div>
+  </div>
+  <div style="height: 32px;"></div>
+  <div class="container" id="main-container" style="display:flex;gap:2em;align-items:flex-start;">
+    <aside class="blog-sidebar" style="flex:1;min-width:260px;max-width:320px;">
+      <div class="profile-card" style="background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);padding:2em 1em 1.5em 1em;text-align:center;margin-bottom:2em;">
+        <img src="/assets/img/(remove-background.net).png" alt="avatar" style="width:90px;height:90px;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:1em;">
+        <div style="font-weight:bold;font-size:1.2em;color:#00897b;margin-bottom:0.3em;">Yao Xiao</div>
+        <div style="font-size:1em;color:#666;margin-bottom:1em;">Stay hungry, stay foolish.</div>
+        <div style="display:flex;justify-content:space-around;margin-bottom:1em;">
+          <div>
+            <div id="blog-article-count" style="font-weight:bold;font-size:1.1em;">0</div>
+            <div style="font-size:0.95em;color:#888;">文章</div>
+          </div>
+          <div>
+            <div id="blog-read-count" style="font-weight:bold;font-size:1.1em;">0</div>
+            <div style="font-size:0.95em;color:#888;">阅读</div>
+          </div>
+          <div>
+            <div id="blog-category-count" style="font-weight:bold;font-size:1.1em;">1</div>
+            <div style="font-size:0.95em;color:#888;">分类</div>
+          </div>
+        </div>
+        <a class="waves-effect waves-light btn-small black" href="https://github.com/YaoXiao-CS" target="_blank" style="margin-top:0.5em;">
+          <i class="fa fa-github left"></i>Follow
+        </a>
+      </div>
+      <div style="background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);padding:1.5em 1em 1em 1em;">
+        <h5 style="color:#00897b;font-weight:600;margin-bottom:1em;">标签</h5>
+        <div id="tag-list"></div>
+      </div>
+      <div style="background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);padding:1.5em 1em 1em 1em;margin-top:2em;">
+        <h5 style="color:#00897b;font-weight:600;margin-bottom:1em;">相关链接</h5>
+        <div id="related-links">
+          <div style="margin-bottom:0.5em;"><a href="https://www.youtube.com/" target="_blank" style="color:#00897b;"><i class="fa fa-youtube-play"></i> YouTube</a></div>
+          <div style="margin-bottom:0.5em;"><a href="https://github.com/" target="_blank" style="color:#00897b;"><i class="fa fa-github"></i> GitHub</a></div>
+          <div style="margin-bottom:0.5em;"><a href="https://www.bilibili.com/" target="_blank" style="color:#00897b;"><i class="fa fa-play-circle"></i> Bilibili</a></div>
+          <div style="margin-bottom:0.5em;"><a href="https://www.zhihu.com/" target="_blank" style="color:#00897b;"><i class="fa fa-question-circle"></i> 知乎</a></div>
+        </div>
+      </div>
+    </aside>
+    <div class="blog-main-content" style="flex:3;min-width:0;">
+      <div id="blog-list"></div>
+      <div id="blog-content" style="display:none;"></div>
+      <div id="comments-container" style="display:none;margin-bottom:2em;"></div>
+    </div>
+  </div>
+  <div class="blog-copyright">
+    &copy; 2024 Yao Xiao | Powered by GitHub Pages | 主题词云图 &amp; 阅读统计演示
+  </div>
+  <script>
+    // 博客数据
+    const blogs = [
+      {
+        title: "示例博客",
+        file: "example-blog.md",
+        date: "2024-06-27",
+        summary: "这是一个博客功能的示例文章，支持Markdown格式。",
+        tags: ["Markdown", "博客", "示例"],
+        read: 0
+      },
+      {
+        title: "高性能混凝土抗压强度预测",
+        file: "concrete-predict.md",
+        date: "2024-06-20",
+        summary: "基于机器学习方法对高性能混凝土抗压强度进行建模与预测。",
+        tags: ["机器学习", "工程", "回归"],
+        read: 0
+      },
+      {
+        title: "Python数据可视化入门",
+        file: "python-viz.md",
+        date: "2024-06-15",
+        summary: "介绍常用Python数据可视化库及其基本用法。",
+        tags: ["Python", "可视化", "数据分析"],
+        read: 0
+      },
+      {
+        title: "深度学习中的正则化技巧",
+        file: "dl-regularization.md",
+        date: "2024-06-10",
+        summary: "总结深度学习中常用的正则化方法及其原理。",
+        tags: ["深度学习", "正则化", "AI"],
+        read: 0
+      }
+    ];
+
+    // 本地存储阅读数
+    function loadReadStats() {
+      const stats = JSON.parse(localStorage.getItem('blogReadStats') || '{}');
+      blogs.forEach((blog) => {
+        if (typeof stats[blog.title] === 'number') {
+          blog.read = stats[blog.title];
+        }
+      });
+    }
+    function saveReadStats() {
+      const stats = {};
+      blogs.forEach(blog => {
+        stats[blog.title] = blog.read;
+      });
+      localStorage.setItem('blogReadStats', JSON.stringify(stats));
+    }
+    loadReadStats();
+
+    // 标签统计
+    const tagMap = {};
+    blogs.forEach(blog => {
+      (blog.tags || []).forEach(tag => {
+        tagMap[tag] = (tagMap[tag] || 0) + 1;
+      });
+    });
+
+    // 统计赋值函数
+    function updateProfileStats() {
+      document.getElementById('blog-article-count').innerText = blogs.length;
+      document.getElementById('blog-read-count').innerText = blogs.reduce((a,b)=>a+b.read,0);
+      document.getElementById('blog-count').innerText = `共 ${blogs.length} 篇文章`;
+      document.getElementById('blog-read-total').innerText = `总阅读 ${blogs.reduce((a,b)=>a+b.read,0)} 次`;
+    }
+
+    // 标签列表
+    const tagListDiv = document.getElementById('tag-list');
+    tagListDiv.innerHTML = Object.keys(tagMap).map(tag =>
+      `<span class="blog-tag">${tag} <span style="color:#aaa;font-size:0.9em;">(${tagMap[tag]})</span></span>`
+    ).join(' ');
+
+    // 词云数据
+    const wordcloudData = Object.keys(tagMap).map(tag => ({
+      name: tag,
+      value: tagMap[tag] * 10 + 20
+    }));
+
+    // 渲染词云
+    var wordcloud = echarts.init(document.getElementById('wordcloud'));
+    var option = {
+      tooltip: {},
+      series: [{
+        type: 'wordCloud',
+        gridSize: 8,
+        sizeRange: [16, 38],
+        rotationRange: [-30, 30],
+        shape: 'circle',
+        width: '100%',
+        height: '100%',
+        textStyle: {
+          normal: {
+            color: function() {
+              return 'rgb(' + [
+                Math.round(Math.random() * 160),
+                Math.round(Math.random() * 160),
+                Math.round(Math.random() * 160)
+              ].join(',') + ')';
+            }
+          }
+        },
+        data: wordcloudData
+      }]
+    };
+    wordcloud.setOption(option);
+
+    // 分页功能
+    let currentPage = 1;
+    const pageSize = 3;
+    const blogListDiv = document.getElementById('blog-list');
+    const blogContentDiv = document.getElementById('blog-content');
+    const commentsDiv = document.getElementById('comments-container');
+    const mainContainer = document.getElementById('main-container');
+
+    function renderBlogList() {
+      blogContentDiv.style.display = 'none';
+      commentsDiv.style.display = 'none';
+      blogListDiv.style.display = 'block';
+      blogListDiv.innerHTML = '';
+      const start = (currentPage - 1) * pageSize;
+      const end = start + pageSize;
+      blogs.slice(start, end).forEach((blog, idx) => {
+        const realIdx = start + idx;
+        const card = document.createElement('div');
+        card.className = 'blog-list-card';
+        card.innerHTML = `
+          <div class="blog-list-title" data-idx="${realIdx}">${blog.title}</div>
+          <div class="blog-list-meta">
+            <span><i class="fa fa-calendar"></i> ${blog.date}</span>
+            <span><i class="fa fa-eye"></i> ${blog.read} 阅读</span>
+          </div>
+          <div class="blog-list-tags">
+            ${(blog.tags || []).map(tag => `<span class="blog-tag">${tag}</span>`).join(' ')}
+          </div>
+          <div class="blog-list-summary">${blog.summary || ''}</div>
+          <div class="blog-list-actions">
+            <a class="waves-effect waves-light btn-small teal lighten-1" data-idx="${realIdx}"><i class="fa fa-book left"></i>阅读全文</a>
+          </div>
+        `;
+        blogListDiv.appendChild(card);
+      });
+      // 分页按钮
+      const totalPages = Math.ceil(blogs.length / pageSize);
+      if (totalPages > 1) {
+        let pager = '<div class="pagination">';
+        for(let i=1;i<=totalPages;i++) {
+          pager += `<a href="javascript:void(0)" onclick="gotoPage(${i})" class="${i===currentPage?'active':''}">${i}</a>`;
+        }
+        pager += '</div>';
+        blogListDiv.innerHTML += pager;
+      }
+      updateProfileStats();
+      saveReadStats();
+    }
+    function gotoPage(page) {
+      currentPage = page;
+      renderBlogList();
+    }
+
+    // 评论区渲染（giscus，需替换为你仓库的repo-id和category-id）
+    function renderComments(blog) {
+      commentsDiv.style.display = 'block';
+      commentsDiv.innerHTML = `
+              <div style="margin:2em 0 1em 0;">
+                <h5 style="color:#00897b;font-weight:600;">评论</h5>
+                <div id="giscus_thread"></div>
+                <noscript>请开启 JavaScript 以查看评论。</noscript>
+              </div>
+            `;
+            // 动态插入giscus脚本
+            const giscus = document.createElement('script');
+            giscus.src = "https://giscus.app/client.js";
+            giscus.setAttribute('data-repo', "YaoXiao-CS/YaoXiao-CS.github.io");
+            giscus.setAttribute('data-repo-id', "YOUR_REPO_ID");
+            giscus.setAttribute('data-category', "General");
+            giscus.setAttribute('data-category-id', "YOUR_CATEGORY_ID");
+            giscus.setAttribute('data-mapping', "title");
+            giscus.setAttribute('data-term', blog.title);
+            giscus.setAttribute('data-strict', "0");
+            giscus.setAttribute('data-reactions-enabled', "1");
+            giscus.setAttribute('data-emit-metadata', "0");
+            giscus.setAttribute('data-input-position', "bottom");
+            giscus.setAttribute('data-theme', "light");
+            giscus.setAttribute('data-lang', "zh-CN");
+            giscus.setAttribute('crossorigin', "anonymous");
+            giscus.async = true;
+            document.getElementById('giscus_thread').appendChild(giscus);
+    }
+
+    // 绑定事件，确保事件委托生效
+    blogListDiv.addEventListener('click', function(e) {
+      // 标题点击
+      if (e.target.classList.contains('blog-list-title') && e.target.dataset.idx) {
+        loadBlog(Number(e.target.dataset.idx));
+        window.location.hash = '#blog-' + e.target.dataset.idx;
+      }
+      // 阅读原文点击
+      if (e.target.tagName === 'A' && e.target.dataset.idx) {
+        loadBlog(Number(e.target.dataset.idx));
+        window.location.hash = '#blog-' + e.target.dataset.idx;
+      }
+    });
+
+    window.loadBlog = function(idx) {
+      const blog = blogs[idx];
+      blog.read += 1;
+      saveReadStats();
+      updateProfileStats();
+      // 先隐藏列表，显示loading
+      blogListDiv.style.display = 'none';
+      blogContentDiv.style.display = 'block';
+      blogContentDiv.innerHTML = '<div style="text-align:center;color:#888;padding:2em;">加载中...</div>';
+      // 路径适配：本地开发和生产环境
+      let blogPath = '';
+      if (location.protocol === 'file:') {
+        // 直接用file协议打开，无法fetch本地文件
+        blogContentDiv.innerHTML = '<div style="color:#e53935;text-align:center;padding:2em;">请使用本地服务器（如VSCode Live Server、python -m http.server等）访问本页面，否则无法加载博客内容。</div>';
+        return;
+      } else if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+        blogPath = './blogs/' + blog.file;
+      } else {
+        blogPath = (location.pathname.replace(/\/[^\/]*$/, '/') + 'blogs/' + blog.file).replace(/\/+/g, '/');
+      }
+      fetch(blogPath)
+        .then(res => {
+          if (!res.ok) throw new Error('未找到博客内容');
+          return res.text();
+        })
+        .then(md => {
+          blogContentDiv.innerHTML = `
+            <span class="back-to-list" onclick="renderBlogList();commentsDiv.style.display='none';window.location.hash='';"><i class="fa fa-arrow-left"></i> 返回博客列表</span>
+            <h2 style="margin-top:0.5em;">${blog.title}</h2>
+            <div style="color:#888;font-size:1rem;margin-bottom:1.5em;">
+              <i class="fa fa-calendar"></i> ${blog.date} &nbsp; 
+              <i class="fa fa-eye"></i> ${blog.read} 阅读
+            </div>
+            <div class="blog-list-tags" style="margin-bottom:1em;">
+              ${(blog.tags || []).map(tag => `<span class="blog-tag">${tag}</span>`).join(' ')}
+            </div>
+            <div class="markdown-body">${marked.parse(md)}</div>
+          `;
+          renderComments(blog);
+          blogContentDiv.scrollIntoView({behavior: "smooth"});
+          updateProfileStats();
+          saveReadStats();
+        })
+        .catch(() => {
+          blogContentDiv.innerHTML = '<div style="color:#e53935;text-align:center;padding:2em;">未找到博客内容，请检查文件路径。</div>';
+        });
+    };
+
+    // hash 跳转支持
+    function hashLoad() {
+      if(location.hash.startsWith('#blog-')) {
+        const idx = parseInt(location.hash.replace('#blog-',''));
+        if(!isNaN(idx) && idx < blogs.length) loadBlog(idx);
+        else renderBlogList();
+      } else {
+        renderBlogList();
+      }
+    }
+    window.addEventListener('hashchange', hashLoad);
+    hashLoad();
+  </script>
+</body>
+</html>
