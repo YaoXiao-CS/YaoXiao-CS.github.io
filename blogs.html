@@ -77,6 +77,10 @@
       box-shadow: none !important;
       min-height: 32px;
       line-height: 1.5;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      padding: 0 0.7em 0 0;
     }
     .read-more-link:hover {
       color: #004d40 !important;
@@ -89,8 +93,8 @@
   <div class="blog-header center-align">
     <div class="blog-header-inner">
       <h2>Yao Xiao's Blogs</h2>
-      <div class="blog-stats">
-        <span id="blog-count"></span> · <span id="blog-read-total"></span>
+      <div style="margin-top:1.2rem;font-size:1.1rem;opacity:0.93;text-align:center;">
+        已识乾坤大，犹怜草木青
       </div>
       <div id="wordcloud" style="width: 100%; max-width: 420px; height: 120px; margin: 1.5em auto 0 auto;"></div>
       <p>记录 · 分享 · 思考</p>
@@ -117,7 +121,7 @@
             <div style="font-size:0.95em;color:#888;">分类</div>
           </div>
         </div>
-        <a class="follow-link" href="https://github.com/YaoXiao-CS" target="_blank" style="display:inline-flex;align-items:center;gap:0.4em;font-weight:500;font-size:1em;color:#00897b;text-decoration:none;transition:color 0.2s;margin-top:0.5em;">
+        <a class="follow-link" href="https://github.com/YaoXiao-CS" target="_blank">
           <i class="fa fa-github" style="font-size:1.2em;vertical-align:middle;"></i>
           Follow
         </a>
@@ -212,8 +216,7 @@
     function updateProfileStats() {
       document.getElementById('blog-article-count').innerText = blogs.length;
       document.getElementById('blog-read-count').innerText = blogs.reduce((a,b)=>a+b.read,0);
-      document.getElementById('blog-count').innerText = `共 ${blogs.length} 篇文章`;
-      document.getElementById('blog-read-total').innerText = `总阅读 ${blogs.reduce((a,b)=>a+b.read,0)} 次`;
+      // 不再更新 blog-count 和 blog-read-total
     }
 
     // 标签列表
@@ -286,7 +289,7 @@
           </div>
           <div class="blog-list-summary">${blog.summary || ''}</div>
           <div class="blog-list-actions">
-            <a class="read-more-link waves-effect waves-light btn-flat" data-idx="${realIdx}" style="display:inline-flex;align-items:center;gap:0.4em;padding:0 0.7em 0 0;">
+            <a class="read-more-link waves-effect waves-light btn-flat" data-idx="${realIdx}">
               <i class="fa fa-book" style="font-size:1.1em;vertical-align:middle;"></i>
               阅读全文
             </a>
