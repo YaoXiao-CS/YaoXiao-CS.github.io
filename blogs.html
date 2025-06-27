@@ -24,7 +24,14 @@
     .blog-list-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.13); }
     .blog-list-content { flex:1; min-width:0; display:flex; flex-direction:column; }
     .blog-list-cover { flex:0 0 120px; max-width:160px; display:flex; align-items:center; }
-    .blog-list-cover img { width:100%; height:auto; max-height:120px; object-fit:cover; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+    .blog-list-cover img { 
+      width:100%; 
+      height:auto; 
+      max-height:180px; 
+      object-fit:cover; 
+      border-radius:8px; 
+      box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    }
     .blog-list-title { font-size: 1.3rem; font-weight: 600; color: #00897b; margin-bottom: 0.2rem; cursor: pointer; transition: color 0.2s; }
     .blog-list-title:hover { color: #004d40; text-decoration: underline; }
     .blog-list-meta { font-size: 0.98rem; color: #888; margin-bottom: 0.2rem; display: flex; gap: 1.2em; align-items: center; }
@@ -193,6 +200,15 @@
         tags: ["Python", "可视化", "数据分析"],
         read: 0
         // 没有封面图
+      },
+      {
+        title: "深度学习中的正则化技巧",
+        file: "dl-regularization.md",
+        date: "2024-06-10",
+        summary: "总结深度学习中常用的正则化方法及其原理。",
+        tags: ["深度学习", "正则化", "AI"],
+        read: 0,
+        cover: "blogs/covers/dl-regularization.jpg"
       },
       {
         title: "深度学习中的正则化技巧",
