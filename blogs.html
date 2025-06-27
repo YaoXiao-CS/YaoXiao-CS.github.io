@@ -146,10 +146,8 @@
           </div>
           <div>
             <div id="blog-read-count" style="font-weight:bold;font-size:1.1em;">
-              <!-- 替换为 clustrmaps 统计代码 -->
-              <a href="https://clustrmaps.com/site/1b2cd" title="Visit tracker">
-                <img src="//clustrmaps.com/globe.js?d=kwyKHhpjCtY5a_is1PxJMuWOPYj_x8IohZ5TYKJekRQ" style="width:90px;max-width:100%;" alt="ClustrMaps"/>
-              </a>
+              <!-- clustrmaps统计数据，仅显示数字，无图标 -->
+              <span id="clustrmaps_count">-</span>
             </div>
             <div style="font-size:0.95em;color:#888;">访问</div>
           </div>
@@ -188,10 +186,11 @@
   </div>
   
   <script>
-    // 博客数据
+    // 博客数据（每篇博客添加 category 字段）
     const blogs = [
       {
         title: "示例博客",
+        category: "博客示例",
         file: "example-blog.md",
         date: "2024-06-27",
         summary: "这是一个博客功能的示例文章，支持Markdown格式。",
@@ -201,6 +200,7 @@
       },
       {
         title: "高性能混凝土抗压强度预测",
+        category: "工程",
         file: "concrete-predict.md",
         date: "2024-06-20",
         summary: "基于机器学习方法对高性能混凝土抗压强度进行建模与预测。",
@@ -210,6 +210,7 @@
       },
       {
         title: "Python数据可视化入门",
+        category: "Python",
         file: "python-viz.md",
         date: "2024-06-15",
         summary: "介绍常用Python数据可视化库及其基本用法。",
@@ -218,6 +219,7 @@
       },
       {
         title: "深度学习中的正则化技巧",
+        category: "AI",
         file: "dl-regularization.md",
         date: "2024-06-10",
         summary: "总结深度学习中常用的正则化方法及其原理。",
@@ -321,6 +323,7 @@
             <div class="blog-list-meta">
               <span><i class="fa fa-calendar"></i> ${blog.date}</span>
               <span><i class="fa fa-eye"></i> ${blog.read} 阅读</span>
+              <span><i class="fa fa-folder-open"></i> ${blog.category || '未分类'}</span>
             </div>
             <div class="blog-list-tags">
               ${(blog.tags || []).map(tag => `<span class="blog-tag" data-tag="${tag}">${tag}</span>`).join(' ')}
@@ -481,6 +484,7 @@
             <div style="color:#888;font-size:1rem;margin-bottom:1.5em;">
               <i class="fa fa-calendar"></i> ${blog.date} &nbsp; 
               <i class="fa fa-eye"></i> ${blog.read} 阅读
+              <i class="fa fa-folder-open"></i> ${blog.category || '未分类'}
             </div>
             <div class="blog-list-tags" style="margin-bottom:1em;">
               ${(blog.tags || []).map(tag => `<span class="blog-tag" data-tag="${tag}">${tag}</span>`).join(' ')}
@@ -500,7 +504,9 @@
     // 统计赋值函数
     function updateProfileStats() {
       document.getElementById('blog-article-count').innerText = blogs.length;
-      document.getElementById('blog-read-count').innerText = blogs.reduce((a,b)=>a+b.read,0);
+      // 分类统计
+      const categories = new Set(blogs.map(blog => blog.category).filter(Boolean));
+      document.getElementById('blog-category-count').innerText = categories.size;
     }
 
     // hash 跳转支持
@@ -524,6 +530,19 @@
       const targetY = header.offsetHeight + (gapDiv ? gapDiv.offsetHeight : 0);
       window.scrollTo({ top: targetY, behavior: 'smooth' });
     };
+
+    // 自动获取 clustrmaps 统计数字（需替换 YOUR_SITE_ID 为你的实际 clustrmaps site id）
+    // 你的 clustrmaps site id 可在 clustrmaps.com 后台获取
+    fetch('https://clustrmaps.com/map_v2_count?cl=zh&domain=Yaoxiao-cs.github.io')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.count) {
+          document.getElementById('clustrmaps_count').innerText = data.count;
+        }
+      })
+      .catch(() => {
+        document.getElementById('clustrmaps_count').innerText = '-';
+      });
   </script>
 </body>
 </html>
