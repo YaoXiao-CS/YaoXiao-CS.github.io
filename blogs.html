@@ -113,6 +113,7 @@
   </style>
 </head>
 <body>
+  <!-- 顶部封面区 -->
   <div class="blog-header center-align">
     <div class="blog-header-inner">
       <h2>Yao Xiao's Blogs</h2>
@@ -133,8 +134,11 @@
     </div>
   </div>
   <div style="height: 32px;"></div>
+  <!-- 主体区：左侧侧边栏 + 右侧内容 -->
   <div class="container" id="main-container" style="display:flex;gap:2em;align-items:flex-start;">
+    <!-- 左侧侧边栏 -->
     <aside class="blog-sidebar" style="flex:1;min-width:260px;max-width:320px;">
+      <!-- 个人信息卡 -->
       <div class="profile-card" style="background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);padding:2em 1em 1.5em 1em;text-align:center;margin-bottom:2em;">
         <img src="/assets/img/(remove-background.net).png" alt="avatar" style="width:90px;height:90px;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:1em;">
         <div style="font-weight:bold;font-size:1.2em;color:#00897b;margin-bottom:0.3em;">Yao Xiao</div>
@@ -145,11 +149,8 @@
             <div style="font-size:0.95em;color:#888;">文章</div>
           </div>
           <div>
-            <div id="blog-read-count" style="font-weight:bold;font-size:1.1em;">
-              <!-- clustrmaps统计数据，仅显示数字，无图标 -->
-              <span id="clustrmaps_count">-</span>
-            </div>
-            <div style="font-size:0.95em;color:#888;">访问</div>
+            <div id="blog-run-days" style="font-weight:bold;font-size:1.1em;">-</div>
+            <div style="font-size:0.95em;color:#888;">运转</div>
           </div>
           <div>
             <div id="blog-category-count" style="font-weight:bold;font-size:1.1em;">1</div>
@@ -161,10 +162,12 @@
           Follow Me
         </a>
       </div>
+      <!-- 标签区 -->
       <div style="background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);padding:1.5em 1em 1em 1em;">
         <h5 style="color:#00897b;font-weight:600;margin-bottom:1em;">标签</h5>
         <div id="tag-list"></div>
       </div>
+      <!-- 相关链接区 -->
       <div style="background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);padding:1.5em 1em 1em 1em;margin-top:2em;">
         <h5 style="color:#00897b;font-weight:600;margin-bottom:1em;">相关链接</h5>
         <div id="related-links">
@@ -175,16 +178,18 @@
         </div>
       </div>
     </aside>
+    <!-- 右侧主内容区 -->
     <div class="blog-main-content" style="flex:3;min-width:0;">
       <div id="blog-list"></div>
       <div id="blog-content" style="display:none;"></div>
       <div id="comments-container" style="display:none;margin-bottom:2em;"></div>
     </div>
   </div>
+  <!-- 页脚 -->
   <div class="blog-copyright">
     &copy; 2025 Yao Xiao | Powered by GitHub Pages
   </div>
-  
+  <!-- 脚本区 -->
   <script>
     // 博客数据（每篇博客添加 category 字段）
     const blogs = [
@@ -531,18 +536,15 @@
       window.scrollTo({ top: targetY, behavior: 'smooth' });
     };
 
-    // 自动获取 clustrmaps 统计数字（需替换 YOUR_SITE_ID 为你的实际 clustrmaps site id）
-    // 你的 clustrmaps site id 可在 clustrmaps.com 后台获取
-    fetch('https://clustrmaps.com/map_v2_count?cl=zh&domain=Yaoxiao-cs.github.io')
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.count) {
-          document.getElementById('clustrmaps_count').innerText = data.count;
-        }
-      })
-      .catch(() => {
-        document.getElementById('clustrmaps_count').innerText = '-';
-      });
+    // 建站时间（北京时间，UTC+8）
+    const siteStart = new Date('2025-06-01T00:00:00+08:00');
+    function updateRunDays() {
+      const now = new Date();
+      const days = Math.floor((now - siteStart) / (1000 * 60 * 60 * 24));
+      document.getElementById('blog-run-days').innerText = days.toLocaleString();
+    }
+    updateRunDays();
+    setInterval(updateRunDays, 1000 * 60 * 60); // 每小时刷新一次即可
   </script>
 </body>
 </html>
