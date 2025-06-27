@@ -23,14 +23,19 @@
     .blog-list-card { background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); margin-bottom: 2rem; padding: 1.5rem 2rem 1rem 2rem; display: flex; flex-direction: row; gap: 1.2em; align-items: stretch; transition: box-shadow 0.2s; }
     .blog-list-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.13); }
     .blog-list-content { flex:1; min-width:0; display:flex; flex-direction:column; }
-    .blog-list-cover { flex:0 0 120px; max-width:160px; display:flex; align-items:center; }
-    .blog-list-cover img { 
-      width:100%; 
-      height:auto; 
-      max-height:180px; 
-      object-fit:cover; 
-      border-radius:8px; 
-      box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    .blog-list-cover {
+      flex: 0 0 180px;   /* 这里改宽一点，比如180px */
+      max-width: 220px;  /* 这里也可以改大一点 */
+      display: flex;
+      align-items: center;
+    }
+    .blog-list-cover img {
+      width: 100%;       /* 保持100%，自动适应容器宽度 */
+      height: auto;
+      max-height: 180px; /* 高度你已设置 */
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
     .blog-list-title { font-size: 1.3rem; font-weight: 600; color: #00897b; margin-bottom: 0.2rem; cursor: pointer; transition: color 0.2s; }
     .blog-list-title:hover { color: #004d40; text-decoration: underline; }
@@ -273,7 +278,6 @@
         read: 0,
         cover: "blogs/covers/dl-regularization.jpg"
       },
-      
       {
         title: "深度学习中的正则化技巧",
         file: "dl-regularization.md",
