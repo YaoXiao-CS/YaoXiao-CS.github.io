@@ -52,6 +52,21 @@
       .blog-main-row { gap: 0.5rem; }
       .blog-header-inner { padding: 2rem 0 1rem 0; min-height: 180px;}
     }
+    .follow-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      font-weight: 500;
+      font-size: 1em;
+      color: #00897b;
+      text-decoration: none;
+      transition: color 0.2s;
+      margin-top: 0.5em;
+    }
+    .follow-link:hover {
+      color: #004d40 !important;
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -86,8 +101,9 @@
             <div style="font-size:0.95em;color:#888;">分类</div>
           </div>
         </div>
-        <a class="waves-effect waves-light btn-small black" href="https://github.com/YaoXiao-CS" target="_blank" style="margin-top:0.5em;">
-          <i class="fa fa-github left"></i>Follow
+        <a class="follow-link" href="https://github.com/YaoXiao-CS" target="_blank" style="display:inline-flex;align-items:center;gap:0.4em;font-weight:500;font-size:1em;color:#00897b;text-decoration:none;transition:color 0.2s;margin-top:0.5em;">
+          <i class="fa fa-github" style="font-size:1.2em;vertical-align:middle;"></i>
+          Follow
         </a>
       </div>
       <div style="background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);padding:1.5em 1em 1em 1em;">
