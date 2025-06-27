@@ -317,71 +317,51 @@
       });
     });
 
-    // 统计赋值函数
-    function updateProfileStats() {
-      document.getElementById('blog-article-count').innerText = blogs.length;
-      document.getElementById('blog-read-count').innerText = blogs.reduce((a,b)=>a+b.read,0);
-      // 不再更新 blog-count 和 blog-read-total
-    }
+    // 当前激活标签
+    let activeTag = null;
 
-    // 标签列表
+    // 标签列表（带点击跳转功能）
     const tagListDiv = document.getElementById('tag-list');
-    tagListDiv.innerHTML = Object.keys(tagMap).map(tag =>
-      `<span class="blog-tag">${tag} <span style="color:#aaa;font-size:0.9em;">(${tagMap[tag]})</span></span>`
-    ).join(' ');
+    function renderTagList() {
+      tagListDiv.innerHTML = Object.keys(tagMap).map(tag =>
+        `<span class="blog-tag${activeTag === tag ? ' blog-tag-active' : ''}" data-tag="${tag}" style="cursor:pointer;">
+          ${tag} <span style="color:#aaa;font-size:0.9em;">(${tagMap[tag]})</span>
+        </span>`
+      ).join(' ');
+    }
+    renderTagList();
 
-    // 词云数据
-    const wordcloudData = Object.keys(tagMap).map(tag => ({
-      name: tag,
-      value: tagMap[tag] * 10 + 20
-    }));
-
-    // 渲染词云
-    var wordcloud = echarts.init(document.getElementById('wordcloud'));
-    var option = {
-      tooltip: {},
-      series: [{
-        type: 'wordCloud',
-        gridSize: 8,
-        sizeRange: [16, 38],
-        rotationRange: [-30, 30],
-        shape: 'circle',
-        width: '100%',
-        height: '100%',
-        textStyle: {
-          normal: {
-            color: function() {
-              return 'rgb(' + [
-                Math.round(Math.random() * 160),
-                Math.round(Math.random() * 160),
-                Math.round(Math.random() * 160)
-              ].join(',') + ')';
-            }
-          }
-        },
-        data: wordcloudData
-      }]
+    // 监听标签点击
+    tagListDiv.onclick = function(e) {
+      const tag = e.target.closest('.blog-tag')?.getAttribute('data-tag');
+      if (tag) {
+        if (activeTag === tag) {
+          activeTag = null; // 再次点击取消筛选
+        } else {
+          activeTag = tag;
+        }
+        renderTagList();
+        renderBlogList();
+      }
     };
-    wordcloud.setOption(option);
 
-    // 分页功能
-    let currentPage = 1;
-    const pageSize = 3;
-    const blogListDiv = document.getElementById('blog-list');
-    const blogContentDiv = document.getElementById('blog-content');
-    const commentsDiv = document.getElementById('comments-container');
-    const mainContainer = document.getElementById('main-container');
-
+    // 修改博客列表渲染，支持标签筛选
     function renderBlogList() {
       blogContentDiv.style.display = 'none';
       commentsDiv.style.display = 'none';
       blogListDiv.style.display = 'block';
       blogListDiv.innerHTML = '';
+
+      // 筛选
+      let filteredBlogs = blogs;
+      if (activeTag) {
+        filteredBlogs = blogs.filter(blog => (blog.tags || []).includes(activeTag));
+      }
+
       const start = (currentPage - 1) * pageSize;
       const end = start + pageSize;
-      blogs.slice(start, end).forEach((blog, idx) => {
-        const realIdx = start + idx;
-        // 支持封面图
+      filteredBlogs.slice(start, end).forEach((blog, idx) => {
+        const realIdx = blogs.indexOf(blog); // 用原始索引
         const card = document.createElement('div');
         card.className = 'blog-list-card';
         card.innerHTML = `
@@ -392,7 +372,7 @@
               <span><i class="fa fa-eye"></i> ${blog.read} 阅读</span>
             </div>
             <div class="blog-list-tags">
-              ${(blog.tags || []).map(tag => `<span class="blog-tag">${tag}</span>`).join(' ')}
+              ${(blog.tags || []).map(tag => `<span class="blog-tag" data-tag="${tag}" style="cursor:pointer;">${tag}</span>`).join(' ')}
             </div>
             <div class="blog-list-summary">${blog.summary || ''}</div>
             <div class="blog-list-actions">
@@ -408,7 +388,7 @@
       });
 
       // 分页按钮（带首页、尾页、省略号）
-      const totalPages = Math.ceil(blogs.length / pageSize);
+      const totalPages = Math.ceil(filteredBlogs.length / pageSize);
       if (totalPages > 1) {
         let pager = '<div class="pagination">';
         // 首页
@@ -455,6 +435,7 @@
       updateProfileStats();
       saveReadStats();
     }
+    // 修改分页跳转，支持标签筛选时重置页码
     function gotoPage(page) {
       currentPage = page;
       renderBlogList();
@@ -573,6 +554,16 @@
       const targetY = header.offsetHeight + (gapDiv ? gapDiv.offsetHeight : 0);
       window.scrollTo({ top: targetY, behavior: 'smooth' });
     };
+    // 高亮当前激活标签
+    const style = document.createElement('style');
+    style.innerHTML = `
+    .blog-tag-active {
+      background: #00897b !important;
+      color: #fff !important;
+      border: 1px solid #00897b;
+    }
+    `;
+    document.head.appendChild(style);
   </script>
 </body>
 </html>
