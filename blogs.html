@@ -93,11 +93,20 @@
   <div class="blog-header center-align">
     <div class="blog-header-inner">
       <h2>Yao Xiao's Blogs</h2>
-      <div style="margin-top:1.2rem;font-size:1.1rem;opacity:0.93;text-align:center;">
+      <div style="margin-top:1.2rem;font-size:1.2rem;opacity:0.93;text-align:center;">
         已识乾坤大，犹怜草木青
       </div>
       <div id="wordcloud" style="width: 100%; max-width: 420px; height: 120px; margin: 1.5em auto 0 auto;"></div>
       <p>记录 · 分享 · 思考</p>
+      <div id="scroll-arrow" style="margin-top:2.5em;cursor:pointer;animation:bounce 1.5s infinite;">
+        <i class="fa fa-angle-double-down" style="font-size:2.2em;color:#fff;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.18));"></i>
+      </div>
+      <style>
+        @keyframes bounce {
+          0%, 100% { transform: translateY(0);}
+          50% { transform: translateY(12px);}
+        }
+      </style>
     </div>
   </div>
   <div style="height: 32px;"></div>
@@ -467,6 +476,15 @@
     }
     window.addEventListener('hashchange', hashLoad);
     hashLoad();
+
+    // 动态小箭头滚动功能
+    document.getElementById('scroll-arrow').onclick = function() {
+      // 滚动到博客区与封面交界处
+      const header = document.querySelector('.blog-header');
+      const gapDiv = document.querySelector('body > div[style*="height: 32px"]');
+      const targetY = header.offsetHeight + (gapDiv ? gapDiv.offsetHeight : 0);
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    };
   </script>
 </body>
 </html>
