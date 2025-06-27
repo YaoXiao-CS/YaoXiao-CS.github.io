@@ -67,6 +67,22 @@
       color: #004d40 !important;
       text-decoration: underline;
     }
+    .read-more-link {
+      color: #00897b !important;
+      font-weight: 500;
+      font-size: 1em;
+      text-decoration: none;
+      transition: color 0.2s;
+      background: none !important;
+      box-shadow: none !important;
+      min-height: 32px;
+      line-height: 1.5;
+    }
+    .read-more-link:hover {
+      color: #004d40 !important;
+      text-decoration: underline;
+      background: none !important;
+    }
   </style>
 </head>
 <body>
@@ -270,7 +286,10 @@
           </div>
           <div class="blog-list-summary">${blog.summary || ''}</div>
           <div class="blog-list-actions">
-            <a class="waves-effect waves-light btn-small teal lighten-1" data-idx="${realIdx}"><i class="fa fa-book left"></i>阅读全文</a>
+            <a class="read-more-link waves-effect waves-light btn-flat" data-idx="${realIdx}" style="display:inline-flex;align-items:center;gap:0.4em;padding:0 0.7em 0 0;">
+              <i class="fa fa-book" style="font-size:1.1em;vertical-align:middle;"></i>
+              阅读全文
+            </a>
           </div>
         `;
         blogListDiv.appendChild(card);
