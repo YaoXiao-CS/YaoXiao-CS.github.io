@@ -24,15 +24,15 @@
     .blog-list-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.13); }
     .blog-list-content { flex:1; min-width:0; display:flex; flex-direction:column; }
     .blog-list-cover {
-      flex: 0 0 180px;   /* 这里改宽一点，比如180px */
-      max-width: 220px;  /* 这里也可以改大一点 */
+      flex: 0 0 180px;
+      max-width: 220px;
       display: flex;
       align-items: center;
     }
     .blog-list-cover img {
-      width: 100%;       /* 保持100%，自动适应容器宽度 */
+      width: 100%;
       height: auto;
-      max-height: 180px; /* 高度设置 */
+      max-height: 180px;
       object-fit: cover;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
@@ -41,7 +41,7 @@
     .blog-list-title:hover { color: #004d40; text-decoration: underline; }
     .blog-list-meta { font-size: 0.98rem; color: #888; margin-bottom: 0.2rem; display: flex; gap: 1.2em; align-items: center; }
     .blog-list-tags { margin-bottom: 0.5rem; }
-    .blog-tag { display: inline-block; background: #e0f2f1; color: #00897b; border-radius: 12px; padding: 0.15em 0.8em; font-size: 0.93em; margin-right: 0.5em; margin-bottom: 0.2em; transition: background 0.2s; }
+    .blog-tag { display: inline-block; background: #e0f2f1; color: #00897b; border-radius: 12px; padding: 0.15em 0.8em; font-size: 0.93em; margin-right: 0.5em; margin-bottom: 0.2em; transition: background 0.2s; cursor:pointer;}
     .blog-tag:hover { background: #b2dfdb; }
     .blog-list-summary { color: #444; font-size: 1.05rem; margin-bottom: 0.5rem; }
     .blog-list-actions { margin-top: 0.5rem; }
@@ -104,6 +104,11 @@
       color: #004d40 !important;
       text-decoration: underline;
       background: none !important;
+    }
+    .blog-tag-active {
+      background: #00897b !important;
+      color: #fff !important;
+      border: 1px solid #00897b;
     }
   </style>
 </head>
@@ -204,7 +209,6 @@
         summary: "介绍常用Python数据可视化库及其基本用法。",
         tags: ["Python", "可视化", "数据分析"],
         read: 0
-        // 没有封面图
       },
       {
         title: "深度学习中的正则化技巧",
@@ -214,80 +218,7 @@
         tags: ["深度学习", "正则化", "AI"],
         read: 0,
         cover: "blogs/covers/dl-regularization.jpg"
-      },
-      {
-        title: "深度学习中的正则化技巧",
-        file: "dl-regularization.md",
-        date: "2024-06-10",
-        summary: "总结深度学习中常用的正则化方法及其原理。",
-        tags: ["深度学习", "正则化", "AI"],
-        read: 0,
-        cover: "blogs/covers/dl-regularization.jpg"
-      },
-      {
-        title: "深度学习中的正则化技巧",
-        file: "dl-regularization.md",
-        date: "2024-06-10",
-        summary: "总结深度学习中常用的正则化方法及其原理。",
-        tags: ["深度学习", "正则化", "AI"],
-        read: 0,
-        cover: "blogs/covers/dl-regularization.jpg"
-      },
-      {
-        title: "深度学习中的正则化技巧",
-        file: "dl-regularization.md",
-        date: "2024-06-10",
-        summary: "总结深度学习中常用的正则化方法及其原理。",
-        tags: ["深度学习", "正则化", "AI"],
-        read: 0,
-        cover: "blogs/covers/dl-regularization.jpg"
-      },
-      {
-        title: "深度学习中的正则化技巧",
-        file: "dl-regularization.md",
-        date: "2024-06-10",
-        summary: "总结深度学习中常用的正则化方法及其原理。",
-        tags: ["深度学习", "正则化", "AI"],
-        read: 0,
-        cover: "blogs/covers/dl-regularization.jpg"
-      },
-      {
-        title: "深度学习中的正则化技巧",
-        file: "dl-regularization.md",
-        date: "2024-06-10",
-        summary: "总结深度学习中常用的正则化方法及其原理。",
-        tags: ["深度学习", "正则化", "AI"],
-        read: 0,
-        cover: "blogs/covers/dl-regularization.jpg"
-      },
-      {
-        title: "深度学习中的正则化技巧",
-        file: "dl-regularization.md",
-        date: "2024-06-10",
-        summary: "总结深度学习中常用的正则化方法及其原理。",
-        tags: ["深度学习", "正则化", "AI"],
-        read: 0,
-        cover: "blogs/covers/dl-regularization.jpg"
-      },
-      {
-        title: "深度学习中的正则化技巧",
-        file: "dl-regularization.md",
-        date: "2024-06-10",
-        summary: "总结深度学习中常用的正则化方法及其原理。",
-        tags: ["深度学习", "正则化", "AI"],
-        read: 0,
-        cover: "blogs/covers/dl-regularization.jpg"
-      },
-      {
-        title: "深度学习中的正则化技巧-测试",
-        file: "dl-regularization.md",
-        date: "2024-06-10",
-        summary: "总结深度学习中常用的正则化方法及其原理。",
-        tags: ["深度学习", "正则化", "AI"],
-        read: 0,
-        cover: "blogs/img-blog/深度学习中的正则化技巧-测试/example-blog.png"
       }
-      
       // ...其余博客同理，可选加cover字段...
     ];
 
@@ -310,21 +241,30 @@
     loadReadStats();
 
     // 标签统计
-    const tagMap = {};
-    blogs.forEach(blog => {
-      (blog.tags || []).forEach(tag => {
-        tagMap[tag] = (tagMap[tag] || 0) + 1;
+    function getTagMap() {
+      const tagMap = {};
+      blogs.forEach(blog => {
+        (blog.tags || []).forEach(tag => {
+          tagMap[tag] = (tagMap[tag] || 0) + 1;
+        });
       });
-    });
+      return tagMap;
+    }
 
     // 当前激活标签
     let activeTag = null;
+    let currentPage = 1;
+    const pageSize = 3;
+    const blogListDiv = document.getElementById('blog-list');
+    const blogContentDiv = document.getElementById('blog-content');
+    const commentsDiv = document.getElementById('comments-container');
+    const tagListDiv = document.getElementById('tag-list');
 
     // 标签列表（带点击跳转功能）
-    const tagListDiv = document.getElementById('tag-list');
     function renderTagList() {
+      const tagMap = getTagMap();
       tagListDiv.innerHTML = Object.keys(tagMap).map(tag =>
-        `<span class="blog-tag${activeTag === tag ? ' blog-tag-active' : ''}" data-tag="${tag}" style="cursor:pointer;">
+        `<span class="blog-tag${activeTag === tag ? ' blog-tag-active' : ''}" data-tag="${tag}">
           ${tag} <span style="color:#aaa;font-size:0.9em;">(${tagMap[tag]})</span>
         </span>`
       ).join(' ');
@@ -340,6 +280,7 @@
         } else {
           activeTag = tag;
         }
+        currentPage = 1; // 切换标签时重置页码
         renderTagList();
         renderBlogList();
       }
@@ -358,6 +299,10 @@
         filteredBlogs = blogs.filter(blog => (blog.tags || []).includes(activeTag));
       }
 
+      // 修正：如果当前页码超出筛选后总页数，重置为第1页
+      const totalPages = Math.max(1, Math.ceil(filteredBlogs.length / pageSize));
+      if (currentPage > totalPages) currentPage = 1;
+
       const start = (currentPage - 1) * pageSize;
       const end = start + pageSize;
       filteredBlogs.slice(start, end).forEach((blog, idx) => {
@@ -372,7 +317,7 @@
               <span><i class="fa fa-eye"></i> ${blog.read} 阅读</span>
             </div>
             <div class="blog-list-tags">
-              ${(blog.tags || []).map(tag => `<span class="blog-tag" data-tag="${tag}" style="cursor:pointer;">${tag}</span>`).join(' ')}
+              ${(blog.tags || []).map(tag => `<span class="blog-tag" data-tag="${tag}">${tag}</span>`).join(' ')}
             </div>
             <div class="blog-list-summary">${blog.summary || ''}</div>
             <div class="blog-list-actions">
@@ -388,54 +333,55 @@
       });
 
       // 分页按钮（带首页、尾页、省略号）
-      const totalPages = Math.ceil(filteredBlogs.length / pageSize);
-      if (totalPages > 1) {
-        let pager = '<div class="pagination">';
-        // 首页
-        if (currentPage > 1) {
-          pager += `<a href="javascript:void(0)" onclick="gotoPage(1)">首页</a>`;
-        } else {
-          pager += `<span style="color:#bbb;cursor:not-allowed;">首页</span>`;
-        }
-
-        // 页码逻辑
-        let pageLinks = [];
-        if (totalPages <= 7) {
-          for (let i = 1; i <= totalPages; i++) {
-            pageLinks.push(i);
-          }
-        } else {
-          if (currentPage <= 4) {
-            pageLinks = [1,2,3,4,5,'...',totalPages];
-          } else if (currentPage >= totalPages - 3) {
-            pageLinks = [1,'...',totalPages-4,totalPages-3,totalPages-2,totalPages-1,totalPages];
+      if (filteredBlogs.length > 0) {
+        const totalPages = Math.ceil(filteredBlogs.length / pageSize);
+        if (totalPages > 1) {
+          let pager = '<div class="pagination">';
+          // 首页
+          if (currentPage > 1) {
+            pager += `<a href="javascript:void(0)" onclick="gotoPage(1)">首页</a>`;
           } else {
-            pageLinks = [1,'...',currentPage-1,currentPage,currentPage+1,'...',totalPages];
+            pager += `<span style="color:#bbb;cursor:not-allowed;">首页</span>`;
           }
-        }
-        for (let p of pageLinks) {
-          if (p === '...') {
-            pager += `<span style="color:#bbb;">...</span>`;
-          } else if (p === currentPage) {
-            pager += `<a href="javascript:void(0)" class="active">${p}</a>`;
-          } else {
-            pager += `<a href="javascript:void(0)" onclick="gotoPage(${p})">${p}</a>`;
-          }
-        }
 
-        // 尾页
-        if (currentPage < totalPages) {
-          pager += `<a href="javascript:void(0)" onclick="gotoPage(${totalPages})">尾页</a>`;
-        } else {
-          pager += `<span style="color:#bbb;cursor:not-allowed;">尾页</span>`;
+          // 页码逻辑
+          let pageLinks = [];
+          if (totalPages <= 7) {
+            for (let i = 1; i <= totalPages; i++) {
+              pageLinks.push(i);
+            }
+          } else {
+            if (currentPage <= 4) {
+              pageLinks = [1,2,3,4,5,'...',totalPages];
+            } else if (currentPage >= totalPages - 3) {
+              pageLinks = [1,'...',totalPages-4,totalPages-3,totalPages-2,totalPages-1,totalPages];
+            } else {
+              pageLinks = [1,'...',currentPage-1,currentPage,currentPage+1,'...',totalPages];
+            }
+          }
+          for (let p of pageLinks) {
+            if (p === '...') {
+              pager += `<span style="color:#bbb;">...</span>`;
+            } else if (p === currentPage) {
+              pager += `<a href="javascript:void(0)" class="active">${p}</a>`;
+            } else {
+              pager += `<a href="javascript:void(0)" onclick="gotoPage(${p})">${p}</a>`;
+            }
+          }
+
+          // 尾页
+          if (currentPage < totalPages) {
+            pager += `<a href="javascript:void(0)" onclick="gotoPage(${totalPages})">尾页</a>`;
+          } else {
+            pager += `<span style="color:#bbb;cursor:not-allowed;">尾页</span>`;
+          }
+          pager += '</div>';
+          blogListDiv.innerHTML += pager;
         }
-        pager += '</div>';
-        blogListDiv.innerHTML += pager;
       }
       updateProfileStats();
       saveReadStats();
     }
-    // 修改分页跳转，支持标签筛选时重置页码
     function gotoPage(page) {
       currentPage = page;
       renderBlogList();
@@ -483,6 +429,18 @@
         loadBlog(Number(e.target.dataset.idx));
         window.location.hash = '#blog-' + e.target.dataset.idx;
       }
+      // 标签点击（博客卡片内标签）
+      if (e.target.classList.contains('blog-tag') && e.target.dataset.tag) {
+        const tag = e.target.dataset.tag;
+        if (activeTag === tag) {
+          activeTag = null;
+        } else {
+          activeTag = tag;
+        }
+        currentPage = 1;
+        renderTagList();
+        renderBlogList();
+      }
     });
 
     window.loadBlog = function(idx) {
@@ -519,7 +477,7 @@
               <i class="fa fa-eye"></i> ${blog.read} 阅读
             </div>
             <div class="blog-list-tags" style="margin-bottom:1em;">
-              ${(blog.tags || []).map(tag => `<span class="blog-tag">${tag}</span>`).join(' ')}
+              ${(blog.tags || []).map(tag => `<span class="blog-tag" data-tag="${tag}">${tag}</span>`).join(' ')}
             </div>
             <div class="markdown-body">${marked.parse(md)}</div>
           `;
@@ -532,6 +490,12 @@
           blogContentDiv.innerHTML = '<div style="color:#e53935;text-align:center;padding:2em;">未找到博客内容，请检查文件路径。</div>';
         });
     };
+
+    // 统计赋值函数
+    function updateProfileStats() {
+      document.getElementById('blog-article-count').innerText = blogs.length;
+      document.getElementById('blog-read-count').innerText = blogs.reduce((a,b)=>a+b.read,0);
+    }
 
     // hash 跳转支持
     function hashLoad() {
@@ -554,16 +518,6 @@
       const targetY = header.offsetHeight + (gapDiv ? gapDiv.offsetHeight : 0);
       window.scrollTo({ top: targetY, behavior: 'smooth' });
     };
-    // 高亮当前激活标签
-    const style = document.createElement('style');
-    style.innerHTML = `
-    .blog-tag-active {
-      background: #00897b !important;
-      color: #fff !important;
-      border: 1px solid #00897b;
-    }
-    `;
-    document.head.appendChild(style);
   </script>
 </body>
 </html>
