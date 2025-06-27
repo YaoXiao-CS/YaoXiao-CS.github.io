@@ -354,12 +354,48 @@
         `;
         blogListDiv.appendChild(card);
       });
-      // 分页按钮
+
+      // 分页按钮（带首页、尾页、省略号）
       const totalPages = Math.ceil(blogs.length / pageSize);
       if (totalPages > 1) {
         let pager = '<div class="pagination">';
-        for(let i=1;i<=totalPages;i++) {
-          pager += `<a href="javascript:void(0)" onclick="gotoPage(${i})" class="${i===currentPage?'active':''}">${i}</a>`;
+        // 首页
+        if (currentPage > 1) {
+          pager += `<a href="javascript:void(0)" onclick="gotoPage(1)">首页</a>`;
+        } else {
+          pager += `<span style="color:#bbb;cursor:not-allowed;">首页</span>`;
+        }
+
+        // 页码逻辑
+        let pageLinks = [];
+        if (totalPages <= 7) {
+          for (let i = 1; i <= totalPages; i++) {
+            pageLinks.push(i);
+          }
+        } else {
+          if (currentPage <= 4) {
+            pageLinks = [1,2,3,4,5,'...',totalPages];
+          } else if (currentPage >= totalPages - 3) {
+            pageLinks = [1,'...',totalPages-4,totalPages-3,totalPages-2,totalPages-1,totalPages];
+          } else {
+            pageLinks = [1,'...',currentPage-1,currentPage,currentPage+1,'...',totalPages];
+          }
+        }
+        for (let p of pageLinks) {
+          if (p === '...') {
+            pager += `<span style="color:#bbb;">...</span>`;
+          } else if (p === currentPage) {
+            pager += `<a href="javascript:void(0)" class="active">${p}</a>`;
+          } else {
+            pager += `<a href="javascript:void(0)" onclick="gotoPage(${p})">${p}</a>`;
+          }
+        }
+
+        // 尾页
+        if (currentPage < totalPages) {
+          pager += `<a href="javascript:void(0)" onclick="gotoPage(${totalPages})">尾页</a>`;
+        } else {
+          pager += `<span style="color:#bbb;cursor:not-allowed;">尾页</span>`;
         }
         pager += '</div>';
         blogListDiv.innerHTML += pager;
